@@ -14,20 +14,21 @@ local function showForm(player, page)
    local s = 1 + SKINS_PER_PAGE*(page-1);
    local e = math.min(s+SKINS_PER_PAGE-1, n);
 
-   local fs = "size[5,10]";
+   local fs = "size[6.8,10]" ..default.gui_bg..default.gui_bg_img;
    fs = fs.."label[0,0;Change Into:]";
    for i = s, e do
       local slot = i-s+1;
       local skin = wardrobe.skins[i];
       local skinName = minetest.formspec_escape(wardrobe.skinNames[skin]);
       fs = fs.."button_exit[0,"..slot..";5,1;s:"..skin..";"..skinName.."]";
+      fs = fs.."image[5,"..slot..";2,1;"..skin.."]";
    end
-   fs = fs.."label[2,9;Page "..page.."/"..nPages.."]";
+   fs = fs.."label[2.8,9;Page "..page.."/"..nPages.."]";
    if page > 1 then
       fs = fs.."button[0,9;1,1;n:p"..(page-1)..";prev]";
    end
    if page < nPages then
-      fs = fs.."button[4,9;1,1;n:p"..(page+1)..";next]";
+      fs = fs.."button[5.8,9;1,1;n:p"..(page+1)..";next]";
    end
 
    minetest.show_formspec(playerName, FORM_NAME, fs);
@@ -71,7 +72,7 @@ minetest.register_node(
                  "wardrobe_wardrobe_sides.png",
                  "wardrobe_wardrobe_front.png"
               },
-      inventory_image = "wardrobe_wardrobe_front.png",
+      --inventory_image = "wardrobe_wardrobe_front.png",
       sounds = default.node_sound_wood_defaults(),
       groups = { choppy = 3, oddly_breakable_by_hand = 2, flammable = 3 },
       on_rightclick = function(pos, node, player, itemstack, pointedThing)
